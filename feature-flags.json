@@ -1,0 +1,154 @@
+{
+  "mock": {
+    "features": {
+      "quick-search": {
+        "enabled": true,
+        "toUser": 10319
+      },
+      "idle-assets-dashboard":{
+        "enabled": true,
+        "toUser": 10319
+      },
+      "moving-assets-dashboard":{
+        "enabled": true,
+        "toUser": 10319
+      },
+      "yardcheck-dashboard": {
+        "enabled": true,
+        "toUser": 10319
+      },
+      "yard-check": {
+        "enabled": true,
+        "showTextSearch": true
+      },
+      "dashboards": {
+        "enabled": true
+      },
+      "generic-assets": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "idle-assets": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "moving-assets": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "top-menu": {
+        "enabled": true,
+        "toUser": 10319
+      },
+      "accrued-distance": {
+        "enabled": true,
+        "toUser": 10319
+      }
+    }
+  },
+  "development": {
+    "features": {
+      "quick-search": {
+        "enabled": true,
+        "toUser": [10319]
+      },
+      "idle-assets-dashboard":{
+        "enabled": true,
+        "toUser": 10319
+      },
+      "moving-assets-dashboard":{
+        "enabled": true,
+        "toUser": 10319
+      },
+      "yard-check-dashboard": {
+        "enabled": true,
+        "toUser": 10319
+      },
+      "yard-check": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "dashboards": {
+        "enabled": true
+      },
+      "generic-assets": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "idle-assets": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "moving-assets": {
+        "enabled": true,
+        "toUser": 10319,
+        "showTextSearch": true
+      },
+      "top-menu": {
+        "enabled": true,
+        "toUser": 10319
+      },
+      "accrued-distance": {
+        "enabled": true,
+        "toUser": 10319
+      }
+    }
+  },
+  "production": {
+    "features": {
+      "quick-search": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639]
+      },
+      "idle-assets-dashboard":{
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639]
+      },
+      "moving-assets-dashboard":{
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639]
+      },
+      "yard-check-dashboard": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639]
+      },
+      "yard-check": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639],
+        "showTextSearch": false
+      },
+      "dashboards": {
+        "enabled": true
+      },
+      "generic-assets": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639],
+        "showTextSearch": true
+      },
+      "idle-assets": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639],
+        "showTextSearch": true
+      },
+      "moving-assets": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639],
+        "showTextSearch": true
+      },
+      "top-menu": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639]
+      },
+      "accrued-distance": {
+        "enabled": true,
+        "toUser": [10319, 72550, 48235, 49841, 42175, 41554, 44085, 72862, 41625, 41639]
+      }
+    }
+  }
+}

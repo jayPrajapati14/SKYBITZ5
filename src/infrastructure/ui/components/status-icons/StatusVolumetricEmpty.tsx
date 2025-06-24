@@ -1,0 +1,11 @@
+export function StatusVolumetricEmpty() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12.0022 1.60938L2.99552 6.80937L2.99219 17.2036L11.9955 22.3978L21.0022 17.1978L21.0055 6.8036L12.0022 1.60938ZM19.0063 16.0408L11.9914 20.0908L4.99271 16.0486L4.99145 7.96643L11.9976 3.92143L18.9963 7.9636L19.0063 16.0408Z"
+        fill="black"
+        fill-opacity="0.56"
+      />
+    </svg>
+  );
+}

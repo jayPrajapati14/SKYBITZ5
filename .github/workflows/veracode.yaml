@@ -1,0 +1,60 @@
+name: Veracode Static Analysis Demo
+on: workflow_dispatch
+    
+jobs:
+  static_analysis:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out main branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.9.0'
+    
+      - run: npm install  
+      - run: npm run build
+      
+      - name: Install dependencies1
+        run: |
+         cd /home/runner/work/sbef-InSight-2.0/sbef-InSight-2.0
+         ls -l
+         pwd
+        
+      - uses: montudor/action-zip@v1
+        with:
+          args:  zip -qq -r dist.zip   dist
+
+      - name: Download Veracode CLI
+        uses: wei/curl@master
+        with:
+          args: -fsS https://tools.veracode.com/veracode-cli/install | sh
+
+      - name: Download policy
+        run: ./veracode policy get  "Telular App Scan Policy"
+        env: 
+          VERACODE_API_KEY_ID: ${{ secrets.myVeracodeId }}
+          VERACODE_API_KEY_SECRET: ${{ secrets.myVeracodeSecret }}
+          
+      - name: Get Policy ID
+        id: get_policy_id
+        run: |
+          POLICY_NAME="Telular App Scan Policy"
+          POLICY_ID=$(./veracode policy list | grep "$POLICY_NAME" | awk '{print $1}')
+          echo "POLICY_ID=$POLICY_ID" >> $GITHUB_ENV
+        env: 
+          VERACODE_API_KEY_ID: ${{ secrets.myVeracodeId }}
+          VERACODE_API_KEY_SECRET: ${{ secrets.myVeracodeSecret }}
+
+
+      - name: Run a static scan
+        run: |
+          ./veracode static scan dist.zip \
+            --app-id ${{ secrets.VERACODE_APP_ID }} \
+            --policy-file "Telular App Scan Policy"
+        env: 
+          VERACODE_API_KEY_ID: ${{ secrets.myVeracodeId }}
+          VERACODE_API_KEY_SECRET: ${{ secrets.myVeracodeSecret }}

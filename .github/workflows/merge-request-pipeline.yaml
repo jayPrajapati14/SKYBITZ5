@@ -1,0 +1,53 @@
+name: Merge Request Pipeline
+
+on:
+  pull_request:
+    types: [ opened, synchronize, ready_for_review, reopened ]
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23.5.0'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 1. Validate formatting with Prettier
+      - name: Check formatting
+        run: npx prettier --config .prettierrc --check "**/*.{ts,tsx}"
+
+      # 2. Check syntax (using your existing lint script + JSON check)
+      - name: Check syntax
+        run: |
+          npm run lint  # Uses your eslint ./src command
+          npm install -g jsonlint
+          find . -name "*.json" -not -path "./node_modules/*" -exec jsonlint -q {} \;
+
+      # 3. Run unit tests with Vitest
+      - name: Run unit tests
+        run: npm run test -- --run --allowOnly # Runs once, not in watch mode
+        env:
+          VITE_MOCK_API: true
+          VITE_API_URL: ""
+          VITE_LOGIN_URL: ""
+          VITE_SESSION_EXTEND_URL: ""
+          VITE_SESSION_EXTEND_TIME_MILLIS: 600000
+          VITE_ASSET_URL: ""
+
+      # 4. Run Playwright E2E tests
+      # - name: Install Playwright browsers
+      #   run: npx playwright install --with-deps
+      
+      # - name: Run E2E tests
+      #   run: npm run test:e2e

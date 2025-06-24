@@ -1,0 +1,51 @@
+name: 'Publish Application Image'  # Name of the GitHub Actions workflow
+
+on:
+  workflow_dispatch:  # Trigger the workflow manually
+    inputs: 
+      tag_version:  # Input field for specifying the tag version
+        description: 'Enter TAG e.g 1.0.0'  # Description of the input
+        type: string  # The input type is string
+        required: true  # The input is required
+
+permissions:
+  id-token: write  # Permission to write ID token, typically required for authentication purposes
+  contents: read   # Permission to read contents, allowing access to specified resources or files    
+
+jobs:
+  publish-image:
+    name: 'Publish-Image'  # Name of the job
+    runs-on: ubuntu-latest  # The job runs on the latest version of Ubuntu
+    environment: telular-shared-services
+
+    
+    # Use the Bash shell regardless of the GitHub Actions runner's OS
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v4                  
+
+      - name: Configure AWS credentials from AWS account  # Configure AWS credentials using AWS IAM role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  # ARN of the IAM role to be assumed
+          aws-region: ${{ vars.AWS_REGION }}  # AWS region
+          role-session-name: github-oidc-publish-image  # Name of the role session
+
+      - name: Login to Amazon ECR  # Log in to Amazon Elastic Container Registry (ECR)
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push docker image to Amazon ECR  # Build, tag, and push Docker image to ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}  # ECR registry URL
+          REPOSITORY: ${{ secrets.ECR_REPOSITORY }}  # ECR repository name
+          IMAGE_TAG: ${{ inputs.tag_version }}  # Docker image tag version
+          MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }} # Mapbox access token
+        run: |
+          docker build --build-arg MAPBOX_ACCESS_TOKEN=$MAPBOX_ACCESS_TOKEN -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .  # Build Docker image
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG  # Push Docker image to ECR
