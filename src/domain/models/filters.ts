@@ -12,12 +12,14 @@ declare global {
       names?: Landmark[];
       types?: LandmarkType[];
       groups?: LandmarkGroup[];
+      expanded?:boolean
     };
     asset: {
       ids?: AssetId[];
       types?: AssetType[];
       excludedIds?: AssetId[];
       byTextSearch?: string;
+      expanded?:boolean
     };
     location: {
       names?: Landmark[];
@@ -26,16 +28,19 @@ declare global {
       countries?: Country[];
       states?: State[];
       zipCode?: string;
+      expanded?:boolean
     };
     sensor: {
       cargoStatuses?: string[];
       volumetricStatuses?: string[];
       motionStatuses?: string[];
+      expanded?:boolean
     };
     operational: {
       assetLocationType?: AssetLocationType;
       idleTime?: number;
       lastReported?: number;
+      expanded?:boolean
     };
     display: {
       sortBy?: {

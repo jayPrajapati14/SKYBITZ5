@@ -20,6 +20,8 @@ const DASHBOARDS_APP_LINKS = {
 };
 
 export const Dashboards = () => {
+
+  console.log("DASHBOARD");
   const toggleDrawer = useUiStore((state) => state.toggleDrawer);
   const [activeFiltersPanel, setActiveFiltersPanel] = useState<"yard-check" | "idle-assets" | "moving-assets">(
     "yard-check"

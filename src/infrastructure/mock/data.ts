@@ -388,3 +388,33 @@ export function generateRandomLandmarkData(numLandmarks = 1, maxPolygons = 2, ma
   }
   return landmarks;
 }
+
+
+
+type GroupExpansionEntry = {
+  group: "yard-check" | "accrued-distance" | "generic-assets" | "idle-assets" | "moving-assets";
+  expansion: Record<string,boolean>[];
+};
+
+export const expandedData: GroupExpansionEntry[] = [
+  {
+    group: "yard-check",
+    expansion: [{ asset: false }, { sensor: false }, { operational: false }, { location: true }, { landmark: false }]
+  },
+  {
+    group: "accrued-distance",
+    expansion: [{ asset: false }, { sensor: false }, { operational: false }, { location: true }, { landmark: false }]
+  },
+  {
+    group: "generic-assets",
+    expansion: [{ asset: false }, { sensor: false }, { operational: false }, { location: true }, { landmark: false }]
+  },
+  {
+    group: "idle-assets",
+    expansion: [{ asset: false }, { sensor: false }, { operational: false }, { location: true }, { landmark: false }]
+  },
+  {
+    group: "moving-assets",
+   expansion: [{ asset: false }, { sensor: false }, { operational: false }, { location: true }, { landmark: false }]
+  },
+];

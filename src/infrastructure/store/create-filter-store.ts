@@ -52,6 +52,7 @@ export type FilterState<F extends GenericFilters> = {
     emptyViewFilters: () => void;
     fillViewFilters: (newFilters?: F) => void;
     activeFiltersCount: <G extends keyof F, FT extends keyof F[G]>(group: G, filterType: FT) => number;
+   
   };
 };
 
@@ -264,6 +265,8 @@ export const createFilterStore = <F extends GenericFilters>(
               total: Object.values(counts).reduce((acc, curr) => acc + curr, 0),
             };
           },
+         
+
           filtersPinnedCount: () => get().pinnedFilters.length,
           setPaginationModel: (paginationModel) => set(() => ({ paginationModel })),
           activeFiltersCount: (group, filterType) => {

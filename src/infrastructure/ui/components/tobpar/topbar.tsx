@@ -16,6 +16,7 @@ import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlin
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useGenericAssetFilters } from "@/store/generic-asset.store";
 import { useQueryClient } from "@tanstack/react-query";
+import { useUserSetting } from "@/hooks/use-setting";
 
 export function Topbar() {
   const user = useUser();
@@ -110,6 +111,7 @@ export function Topbar() {
       }, 400),
     []
   );
+
 
   useEffect(() => {
     return () => {

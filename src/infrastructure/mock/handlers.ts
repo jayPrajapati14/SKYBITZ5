@@ -12,6 +12,7 @@ import {
   genericAssets,
   idleAssets,
   generateRandomLandmarkData,
+  expandedData,
 } from "./data";
 import {
   AccruedDistancePayloadDto,
@@ -707,4 +708,16 @@ export const handlers = [
       });
     return HttpResponse.json(assets);
   }),
+  http.get(`${MOCK_API_URL}/api/v1/user/settings`, async ({ request }) => {
+    console.log( "MERA DATA API" );
+    await delay();
+    return HttpResponse.json(expandedData);
+  }),
+
+  // http.post(`${MOCK_API_URL}/api/v1/user/settings` , async ({ request }) =>{
+  //   const data = request.body;
+  //   console.log( "MERA DATA" , data);
+  //   expandedDataObj[data.group][data.name] = data.value;
+
+  // })
 ];

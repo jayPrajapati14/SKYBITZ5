@@ -1,5 +1,8 @@
+import { useUserSetting } from "@/hooks/use-setting";
+import { useUiStore } from "@/store/ui.store";
+import { useYardCheckActions } from "@/store/yard-check.store";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function getUserInitials(user: User): React.ReactNode {
   return `${user?.firstName.slice(0, 1)}${user?.lastName.slice(0, 1)}`.toUpperCase();
@@ -18,6 +21,14 @@ export function UserInfo({ user }: UserInfoProps) {
   const toggleMenu = (event: React.MouseEvent<HTMLElement> | null) => {
     setAnchorEl(event?.currentTarget ?? null);
   };
+
+  const { data, isLoading, isError } = useUserSetting();
+  const { setExpandedState } = useUiStore();
+  useEffect(() => {
+    if (!isLoading && data) {
+      setExpandedState(data);
+    }
+  }, [isLoading, data, setExpandedState]);
 
   return (
     <div className="tw-flex tw-items-center tw-gap-1">

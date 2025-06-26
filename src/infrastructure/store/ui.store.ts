@@ -23,6 +23,9 @@ type UIStore = {
   setTableColumnWidth: (tableId: string, columnId: string, width: number) => void;
   getTableColumnWidth: (tableId: string, columnId: string) => number | undefined;
   getTableColumnWidthParameters: ({ tableId, columnId, minWidth }: ColumnParametersInput) => TableColumnWidthParameters;
+
+  setExpandedState: (data: Record<string, boolean>[]) => void;
+  expanded: Record<string, boolean>[];
 };
 
 export const useUiStore = create<UIStore>()(
@@ -34,6 +37,7 @@ export const useUiStore = create<UIStore>()(
 
       // Table Column Widths
       tableColumnWidths: {},
+      expanded: [],
       setTableColumnWidth: (tableId: string, columnId: string, width: number) =>
         set((state) => ({
           tableColumnWidths: {
@@ -42,6 +46,12 @@ export const useUiStore = create<UIStore>()(
           },
         })),
       getTableColumnWidth: (tableId: string, columnId: string) => get().tableColumnWidths[tableId]?.[columnId],
+      setExpandedState: (data) => {
+        console.log("called in store" , data)
+        set((state) => ({
+          ...state.getTableColumnWidth,
+          expanded: data,
+        }))},
       getTableColumnWidthParameters: ({ tableId, columnId, minWidth }: ColumnParametersInput) => {
         const persistedWidth = get().tableColumnWidths[tableId]?.[columnId];
         return {
@@ -55,6 +65,7 @@ export const useUiStore = create<UIStore>()(
       name: "ui-store",
       partialize: (state) => ({
         tableColumnWidths: state.tableColumnWidths,
+        expanded: state.expanded,
       }),
     }
   )
